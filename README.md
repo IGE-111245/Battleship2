@@ -1,12 +1,17 @@
 # ⚓ Battleship 2.0
 
+Grupo TP06-11
+LEI Pedro Angelno 99371
+IGE Gonçalo Medndes 100678
+IGE Martim Saldanha 111245
+
+
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 > A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
 
----
 ## Documentação do Projeto
 
 Consulta a [documentação completa do <nome_projeto>](https://<o_teu_username>.github.io/<nome_repositorio>/) gerada automaticamente com Javadoc.
