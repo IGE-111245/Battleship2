@@ -7,6 +7,11 @@
 > A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
 
 ---
+## Documentação do Projeto
+
+Consulta a [documentação completa do <nome_projeto>](https://<o_teu_username>.github.io/<nome_repositorio>/) gerada automaticamente com Javadoc.
+
+
 
 ## 📖 Table of Contents
 - [Project Overview](#-project-overview)
