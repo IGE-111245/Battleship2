@@ -255,6 +255,125 @@ public class Game implements IGame
 		return Game.jsonShots(shots);
 	}
 
+	/**
+	 * Uses a local LLM, using OLLAMA, with model llama8b, to generate a valid shot.
+	 *
+	 * @return valid JSON string, to fire an enemy shot.
+	 */
+	public String llmEnemyFire() {
+
+		try {
+			LLMService llm = new LLMService();
+
+			String gameState = buildGameState();
+			String prompt = """
+Gera exatamente 3 tiros válidos para um tabuleiro 10x10.
+
+Regras:
+- Linhas: A-J
+- Colunas: 1-10
+- Não repetir coordenadas
+- Não repetir tiros já feitos
+
+Tiros já feitos:
+%s
+
+IMPORTANTE:
+- Responde APENAS com JSON válido
+- NÃO escrevas texto
+- NÃO uses ```json
+- NÃO cries campos extra
+
+Formato EXATO:
+[
+  {"row": "A", "column": 5},
+  {"row": "B", "column": 3},
+  {"row": "F", "column": 9}
+]
+""".formatted(getSimpleShotHistory());
+			ShotDTO[] shotsArray = llm.generateJSON(prompt, ShotDTO[].class);
+
+			List<IPosition> shots = new ArrayList<>();
+
+			for (ShotDTO s : shotsArray) {
+				Position pos = new Position(s.row.charAt(0), s.column);
+
+				// validação básica
+				if (!pos.isInside() || repeatedShot(pos)) {
+					System.out.println("LLM deu tiro inválido → fallback random");
+					return randomEnemyFire();
+				}
+
+				shots.add(pos);
+			}
+
+			System.out.print("LLM rajada ");
+			for (IPosition shot : shots)
+				System.out.print(shot + " ");
+			System.out.println();
+
+			this.fireShots(shots);
+
+			return Game.jsonShots(shots);
+
+		} catch (Exception e) {
+			System.out.println("Erro no LLM → fallback random");
+			return randomEnemyFire();
+		}
+	}
+	/**
+	 * */
+	private String getSimpleShotHistory() {
+		StringBuilder sb = new StringBuilder();
+
+		for (IMove move : alienMoves) {
+			for (IPosition shot : move.getShots()) {
+				sb.append(shot.getClassicRow())
+						.append(shot.getClassicColumn())
+						.append(", ");
+			}
+		}
+
+		return sb.toString();
+	}
+	private String buildGameState() {
+		StringBuilder sb = new StringBuilder();
+
+		int moveNum = 1;
+
+		for (IMove move : alienMoves) {
+
+			sb.append("Rajada ").append(moveNum++).append(":\n");
+
+			List<IPosition> shots = move.getShots();
+			List<IGame.ShotResult> results = move.getShotResults();
+
+			for (int i = 0; i < shots.size(); i++) {
+				IPosition shot = shots.get(i);
+				IGame.ShotResult result = results.get(i);
+
+				sb.append(shot.getClassicRow())
+						.append(shot.getClassicColumn())
+						.append(" -> ");
+
+				if (!result.valid())
+					sb.append("Inválido");
+				else if (result.repeated())
+					sb.append("Repetido");
+				else if (result.ship() == null)
+					sb.append("Água");
+				else if (result.sunk())
+					sb.append("Afundou ").append(result.ship().getCategory());
+				else
+					sb.append("Atingiu ").append(result.ship().getCategory());
+
+				sb.append("\n");
+			}
+		}
+
+		return sb.toString();
+	}
+
 
 	/**
 	 * Reads and processes the enemy fire input from the specified scanner.
