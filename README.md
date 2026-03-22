@@ -2,8 +2,10 @@
 
 Grupo TP06-11
 LEI Pedro Angelno 99371
-IGE Gonçalo Medndes 100678
+IGE Gonçalo Nunes 100678
 IGE Martim Saldanha 111245
+
+Video Demonstração Youtube: https://www.youtube.com/watch?v=3r4T6BXICqQ
 
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
