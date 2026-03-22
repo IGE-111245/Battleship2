@@ -23,7 +23,6 @@ jobs:
           scanMetadataReportFile: target/sonar/report-task.txt
           sonarInstanceUrl: https://sonarcloud.io
           sonarProjectKey: your_org_your_project_key
-          sonarOrganization: your_org_key
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
