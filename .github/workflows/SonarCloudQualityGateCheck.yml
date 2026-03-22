@@ -21,9 +21,9 @@ jobs:
         uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
         with:
           scanMetadataReportFile: target/sonar/report-task.txt
-          sonarInstanceUrl: https://sonarcloud.io
-          sonarProjectKey: your_org_your_project_key
+        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+
 
 
