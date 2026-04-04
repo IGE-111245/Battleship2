@@ -14,13 +14,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Wait for SonarCloud analysis to complete
         uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
         with:
-          scanMetadataReportFile: .scannerwork/report-task.txt
-          sonarInstanceUrl: https://sonarcloud.io
-          sonarProjectKey: your_org_your_project_key
-          sonarOrganization: your_org_key
-          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          scanMetadataReportFile: target/sonar/report-task.txt
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+
+
