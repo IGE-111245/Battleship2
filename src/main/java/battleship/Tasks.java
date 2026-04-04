@@ -32,6 +32,7 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+	private static final String LLM = "llm";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -104,6 +105,26 @@ public class Tasks {
                 case AJUDA:
                     menuHelp();
                     break;
+				case LLM:
+					if (game != null) {
+						while (game.getRemainingShips() > 0) {
+
+							((Game) game).llmEnemyFire();
+
+							myFleet.printStatus();
+							game.printMyBoard(true, false);
+
+							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+							}
+						}
+
+						game.over();
+						System.exit(0);
+					}
+					break;
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
@@ -112,6 +133,7 @@ public class Tasks {
 		}
 		System.out.println(GOODBYE_MESSAGE);
 	}
+
 
 	/**
 	 * This function provides help information about the menu commands.
@@ -125,6 +147,7 @@ public class Tasks {
 		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
+		System.out.println("- " + LLM + ": Simula um jogo completo com ajuda de um Local LLM.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
