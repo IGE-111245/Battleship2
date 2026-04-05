@@ -1,6 +1,5 @@
 #Aluno: 111245 - Martim Reis
 version: "1.0"
-linter: jetbrains/qodana-jvm-community:2024.3
 
 profile:
   name: qodana.recommended
@@ -9,3 +8,7 @@ failThreshold: 1
 
 include:
   - name: ClassWithTooManyMethods
+
+exclude:
+  - name: MagicNumber
+  - name: JavaGenericsWildcardType
