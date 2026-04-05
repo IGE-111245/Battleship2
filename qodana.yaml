@@ -1,17 +1,11 @@
 #Aluno: 111245 - Martim Reis
 version: "1.0"
+linter: jetbrains/qodana-jvm-community:2024.3
 
 profile:
   name: qodana.recommended
 
-# Quality Gate: falha se >=1 nova classe com >20 métodos
 failThreshold: 1
 
-# Foca na inspeção específica do code smell "Class with too many methods"
 include:
   - name: ClassWithTooManyMethods
-
-# Exclui trivialidades para focar no problema real
-exclude:
-  - name: JavaGenericsWildcardType
-  - name: MagicNumber
