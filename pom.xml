@@ -32,9 +32,9 @@
 		<allure.version>2.31.0</allure.version>
 
 		<jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
-
-        <sonar.organization>ige-111245</sonar.organization>
-    </properties>
+    
+		<sonar.organization>ige-111245</sonar.organization>
+	</properties>
 
 	<dependencies>
 		<!-- JUnit Jupiter API -->
