@@ -8,10 +8,20 @@ import java.util.Objects;
  * Represents a position on the game board.
  * A position is defined by its row and column coordinates,
  * and it can be occupied or hit during the game.
- */
+ */ 
 public class Position implements IPosition {
 
-	/**
+    public static final int[][] DIRECTIONS = new int[][]{
+            {-1, 0},  // north
+            {0, 1},   // east
+            {1, 0},   // south
+            {0, -1},   // west
+            {1, 1},   // northeast
+            {1, -1},  // northwest
+            {-1, 1},  // southeast
+            {-1, -1} // southwest
+    };
+    /**
 	 * The row coordinate of the position.
 	 */
 	private final int row;
@@ -140,19 +150,9 @@ public class Position implements IPosition {
 		int col = this.getColumn();
 
 		// Define possible directions (up, right, down, left)
-		int[][] directions = {
-				{-1, 0},  // north
-				{0, 1},   // east
-				{1, 0},   // south
-				{0, -1},   // west
-				{1, 1},   // northeast
-				{1, -1},  // northwest
-				{-1, 1},  // southeast
-				{-1, -1} // southwest
-		};
 
-		// Check each possible direction
-		for (int[] dir : directions) {
+        // Check each possible direction
+		for (int[] dir : DIRECTIONS) {
 			Position newPosition = new Position(row + dir[0], col + dir[1]);
 			// Only add the position if it's inside the board boundaries
 			if (newPosition.isInside()) {
