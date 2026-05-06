@@ -2,6 +2,7 @@ package battleship;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,6 +12,7 @@ public class LLMService {
 
     private static final String OLLAMA_URL = "http://localhost:11434/api/generate";
     private static final String MODEL = "llama3:8b-instruct-q4_0";
+    public static final double TEMPERATURE = 0.2;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -55,11 +57,7 @@ public class LLMService {
     private String cleanJSON(String raw) {
         raw = raw.trim();
 
-        if (raw.startsWith("```")) {
-            raw = raw.replaceAll("```json", "")
-                    .replaceAll("```", "")
-                    .trim();
-        }
+        raw = removeMarkdownFences(raw);
 
         int start = raw.indexOf("[");
         int end = raw.lastIndexOf("]");
@@ -71,12 +69,21 @@ public class LLMService {
         return raw;
     }
 
+    private static @NotNull String removeMarkdownFences(String raw) {
+        if (raw.startsWith("```")) {
+            raw = raw.replaceAll("```json", "")
+                    .replaceAll("```", "")
+                    .trim();
+        }
+        return raw;
+    }
+
     //
     private static class RequestBody {
         public String model = MODEL;
         public String prompt;
         public boolean stream = false;
-        public double temperature = 0.2;
+        public double temperature = TEMPERATURE;
 
         public RequestBody(String prompt) {
             this.prompt = prompt;
