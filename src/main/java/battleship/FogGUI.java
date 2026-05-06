@@ -52,6 +52,7 @@ public class FogGUI extends Application {
         gc.setFill(hit ? Color.RED : Color.BLUE);
         gc.fillRect(x*50 + 5, y*50 + 5, 40, 40);
         System.out.println("Tiro (" + x + "," + y + ") - " + (hit ? "Hit!" : "Miss"));
+        
     }
 
     public static void main(String[] args) {
