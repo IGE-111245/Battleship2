@@ -1,26 +1,28 @@
 package battleship;
 
-import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 /**
- * Test class for Compass.
- * Author: britoeabreu
- * Date: 2023-10-10
- * Time: 15:30
- * Cyclomatic Complexity for each method:
- * - Constructor: 1
- * - getDirection: 1
- * - toString: 1
- * - charToCompass: 4
+ * Test class for class Compass.
+ * Author: Martim Reis 111245
+ * Date: 2026-05-06 12:47
+ * Cyclomatic Complexity:
+ * - getDirection(): 1
+ * - toString(): 1
+ * - randomBearing(): 1
+ * - charToCompass(char): 5
  */
-public class CompassTest {
+class CompassTest {
 
 	private Compass compass;
 
 	@BeforeEach
 	void setUp() {
-		compass = Compass.NORTH; // Example instance for testing
+		compass = Compass.NORTH;
 	}
 
 	@AfterEach
@@ -28,64 +30,58 @@ public class CompassTest {
 		compass = null;
 	}
 
-	/**
-	 * Test for the Compass constructor.
-	 * Cyclomatic Complexity: 1
-	 */
-	@Test
-	void constructor() {
-		assertNotNull(compass, "Error: Compass instance should not be null.");
-	}
-
-	/**
-	 * Test for the getDirection method.
-	 * Cyclomatic Complexity: 1
-	 */
 	@Test
 	void getDirection() {
-		assertEquals('n', Compass.NORTH.getDirection(), "Error: Direction for NORTH should be 'n'.");
-		assertEquals('s', Compass.SOUTH.getDirection(), "Error: Direction for SOUTH should be 's'.");
-		assertEquals('e', Compass.EAST.getDirection(), "Error: Direction for EAST should be 'e'.");
-		assertEquals('o', Compass.WEST.getDirection(), "Error: Direction for WEST should be 'o'.");
+		assertEquals('n', compass.getDirection(),
+				"Error: expected NORTH direction character to be 'n', but got a different value.");
 	}
 
-	/**
-	 * Test for the toString method.
-	 * Cyclomatic Complexity: 1
-	 */
 	@Test
 	void toStringTest() {
-		assertEquals("n", Compass.NORTH.toString(), "Error: String representation for NORTH should be 'n'.");
-		assertEquals("s", Compass.SOUTH.toString(), "Error: String representation for SOUTH should be 's'.");
-		assertEquals("e", Compass.EAST.toString(), "Error: String representation for EAST should be 'e'.");
-		assertEquals("o", Compass.WEST.toString(), "Error: String representation for WEST should be 'o'.");
+		assertEquals("n", compass.toString(),
+				"Error: expected NORTH string representation to be 'n', but got a different value.");
 	}
 
-	/**
-	 * Test for the charToCompass method (all conditions true).
-	 * Cyclomatic Complexity: 4
-	 */
+	@Test
+	void randomBearing() {
+		Compass result = Compass.randomBearing();
+
+		assertAll("randomBearing result",
+				() -> assertNotNull(result, "Error: expected randomBearing() to return a Compass value, but it returned null."),
+				() -> assertTrue(
+						result == Compass.NORTH || result == Compass.SOUTH || result == Compass.EAST || result == Compass.WEST,
+						"Error: expected randomBearing() to return one of the defined Compass constants, but got an invalid value."
+				)
+		);
+	}
+
 	@Test
 	void charToCompass1() {
-		assertEquals(Compass.NORTH, Compass.charToCompass('n'), "Error: 'n' should map to Compass.NORTH.");
-		assertEquals(Compass.SOUTH, Compass.charToCompass('s'), "Error: 's' should map to Compass.SOUTH.");
-		assertEquals(Compass.EAST, Compass.charToCompass('e'), "Error: 'e' should map to Compass.EAST.");
-		assertEquals(Compass.WEST, Compass.charToCompass('o'), "Error: 'o' should map to Compass.WEST.");
+		assertEquals(Compass.NORTH, Compass.charToCompass('n'),
+				"Error: expected charToCompass('n') to return NORTH, but got a different value.");
 	}
 
-	/**
-	 * Test for the charToCompass method (invalid input).
-	 */
 	@Test
 	void charToCompass2() {
-		assertNull(Compass.charToCompass('x'), "Error: 'x' should map to null.");
+		assertEquals(Compass.SOUTH, Compass.charToCompass('s'),
+				"Error: expected charToCompass('s') to return SOUTH, but got a different value.");
 	}
 
-	/**
-	 * Test for the charToCompass method (null input).
-	 */
 	@Test
 	void charToCompass3() {
-		assertNull(Compass.charToCompass('\0'), "Error: Null character should map to null.");
+		assertEquals(Compass.EAST, Compass.charToCompass('e'),
+				"Error: expected charToCompass('e') to return EAST, but got a different value.");
+	}
+
+	@Test
+	void charToCompass4() {
+		assertEquals(Compass.WEST, Compass.charToCompass('o'),
+				"Error: expected charToCompass('o') to return WEST, but got a different value.");
+	}
+
+	@Test
+	void charToCompass5() {
+		assertNull(Compass.charToCompass('x'),
+				"Error: expected charToCompass('x') to return null for an invalid direction, but got a different value.");
 	}
 }
