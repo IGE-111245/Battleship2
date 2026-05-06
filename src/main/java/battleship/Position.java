@@ -152,18 +152,22 @@ public class Position implements IPosition {
 		// Define possible directions (up, right, down, left)
 
         // Check each possible direction
-		for (int[] dir : DIRECTIONS) {
-			Position newPosition = new Position(row + dir[0], col + dir[1]);
-			// Only add the position if it's inside the board boundaries
-			if (newPosition.isInside()) {
-				adjacents.add(newPosition);
-			}
-		}
+        collectValidNeighbours(row, col, adjacents);
 
-		return adjacents;
+        return adjacents;
 	}
 
-	/**
+    private static void collectValidNeighbours(int row, int col, List<IPosition> adjacents) {
+        for (int[] dir : DIRECTIONS) {
+            Position newPosition = new Position(row + dir[0], col + dir[1]);
+            // Only add the position if it's inside the board boundaries
+            if (newPosition.isInside()) {
+                adjacents.add(newPosition);
+            }
+        }
+    }
+
+    /**
 	 * Checks if this position is occupied by a ship.
 	 *
 	 * @return true if the position is occupied, false otherwise
