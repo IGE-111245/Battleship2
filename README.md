@@ -4,7 +4,7 @@ Grupo TP06-11
 LEI Pedro Angelno 99371
 IGE Gonçalo Nunes 100678
 IGE Martim Saldanha 111245
-IGE Vicente Viela
+IGE Vicente Viela 111519
 
 # Youtube Demonstration Video: 
 https://www.youtube.com/watch?v=3r4T6BXICqQ
@@ -20,7 +20,7 @@ https://youtu.be/L9qyg9Gvlz4
 
 ## Documentação do Projeto
 
-Consulta a [documentação completa do <nome_projeto>](https://<o_teu_username>.github.io/<nome_repositorio>/) gerada automaticamente com Javadoc.
+Consulta a [documentação completa do Battleships2](https://<o_teu_username>.github.io/<nome_repositorio>/) gerada automaticamente com Javadoc.
 
 # Prompt Used to Communicate with ChatGPT - Improved Version [D.2]
 
