@@ -1,0 +1,16 @@
+{
+  "name": "Battleship Dev. Environment",
+  "dockerFile": "Dockerfile",
+
+  "settings": {
+    "java.home": "/usr/lib/jvm/java-21-openjdk-amd64"
+  },
+
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-maven",
+    "ms-azuretools.vscode-docker"
+  ],
+
+  "shutdownAction": "stopContainer"
+}
